@@ -1,0 +1,87 @@
+#include <stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node* next;
+};
+struct node* root =NULL;
+void add()
+{
+    struct node* temp;
+        temp=(struct node*)malloc(sizeof(struct node));
+        scanf("%d",&temp->data);
+        temp->next=NULL;
+        if(root==NULL)
+        root=temp;
+        else{
+            struct node* temp1;
+            temp1=root;
+            while(temp1->next!=NULL)
+            temp1=temp1->next;
+            temp1->next=temp;
+        }
+    
+}
+
+void display()
+{
+    struct node* temp;
+    temp=root;
+    while(temp!=NULL)
+    {
+        printf("%d ",temp->data);
+        temp=temp->next;
+    }
+    printf("\n");
+}
+void insert(int k)
+{
+    int cnt=1;
+    struct node* temp;
+    temp=(struct node*)malloc(sizeof(struct node));
+    struct node* temp1;
+    //scanf("%d%d",&k,&l);
+    scanf("%d",&temp->data);
+    temp->next=NULL;
+    if(k==0)
+    {
+        temp->next=root;
+        root=temp;
+    }
+    else
+    {
+        temp1=root;
+        while(cnt<k)
+        {
+            temp1=temp1->next;
+            cnt++;
+            if(cnt==k-1)
+            {
+                temp->next=temp1->next;
+                temp1->next=temp;
+            }
+        }
+    }
+   // display();
+}
+
+int main()
+{
+    int n,i=0,k,l;
+    scanf("%d",&n); //scan the no of elements you want to insert first
+    while(i<n)
+    {
+        add();    //every time call this function to add data to SLL
+        i++;
+    }
+    display();
+    while(scanf("%d",&k)) // if you want to insert any element later 
+    {
+    
+        //scanf("%d",&l);
+    insert(k);
+    display();
+    }
+    return 0;
+}
