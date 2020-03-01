@@ -1,0 +1,99 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node* next;
+};
+struct node* head=NULL;
+
+void rotate()
+{
+   struct node *temp3,*temp1,*temp2,*temp=head;
+   if(temp->data%2==0 && temp->next->data%2==0)
+   {
+       temp1=temp->next;
+       temp3=temp;
+       while(temp1->data%2==0 && temp1!=NULL)
+       {
+           head=temp->next;
+           temp->next=temp1->next;
+           temp1->next=temp3;
+           temp3=temp1;
+           temp1=temp;
+           if(temp1->next==NULL)
+           break;
+           else
+           temp1=temp1->next;
+           
+       }
+       temp=temp->next;
+   }
+   while(temp!=NULL)
+   {
+       if(temp->data%2==0 && temp->next->data%2==0)
+       {
+           temp1=temp->next;
+           temp3=temp;
+           while(temp1->data%2==0)
+           {
+               temp->next=temp1->next;
+               temp2->next=temp1;
+               temp1->next=temp3;
+               temp3=temp1;
+               temp1=temp;
+               if(temp1->next==NULL)
+               break;
+               else
+               temp1=temp1->next;
+           }
+           temp=temp->next;
+       }
+       else
+       {
+           temp2=temp;
+           temp=temp->next;
+       }
+   }
+}
+
+void display()
+{
+    struct node* temp;
+    temp=head;
+    while(temp!=NULL)
+    {
+        printf("%d ",temp->data);
+        temp=temp->next;
+    }
+    printf("\n");
+}
+void add()
+{
+     struct node* temp=(struct node*)malloc(sizeof(struct node));
+        scanf("%d",&temp->data);
+        temp->next=NULL;
+        if(head==NULL)
+        head=temp;
+        else
+        {
+            struct node* temp1;
+            temp1=head;
+            while(temp1->next!=NULL)
+            temp1=temp1->next;
+            temp1->next=temp;
+        }
+}
+int main()
+{
+    int n,i=0;
+    scanf("%d",&n);
+    while(i<n)
+    {
+       add();
+       i++;
+    }
+    rotate();
+    display();
+    return 0;
+}
