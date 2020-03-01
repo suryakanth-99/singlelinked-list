@@ -1,0 +1,83 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node* next;
+};
+struct node* head=NULL;
+
+void leftright(int n)
+{
+    struct node*slow=head,*fast=head,*temp;
+    while(fast->next!=NULL && fast->next->next!=NULL)
+    {
+        fast=fast->next->next;
+        slow=slow->next;
+    }
+    if(fast->next==NULL)
+    {
+        fast=slow->next;
+        printf("%d ",slow->data);
+        while(fast!=NULL)
+        {
+            temp=head;
+            while(temp->next!=slow)
+            temp=temp->next;
+            printf("%d %d ",temp->data,fast->data);
+            slow=temp;
+            fast=fast->next;
+        }
+       
+    }
+    
+    else
+    {
+        fast=slow->next;
+        printf("%d ",slow->data);
+        printf("%d ",fast->data);
+        fast=fast->next;
+        
+        while(fast!=NULL)
+        {
+            temp=head;
+            
+        while(temp->next!=slow)
+        temp=temp->next;
+        printf("%d %d ",temp->data,fast->data);
+        fast=fast->next;
+        slow=temp;
+        }
+    }
+    
+    
+}
+void add()
+{
+     struct node* temp=(struct node*)malloc(sizeof(struct node));
+        scanf("%d",&temp->data);
+        temp->next=NULL;
+        if(head==NULL)
+        head=temp;
+        else
+        {
+            struct node* temp1;
+            temp1=head;
+            while(temp1->next!=NULL)
+            temp1=temp1->next;
+            temp1->next=temp;
+        }
+}
+int main()
+{
+    int n,i=0;
+    scanf("%d",&n);
+    while(i<n)
+    {
+       add();
+       i++;
+    }
+    leftright(n);
+
+    return 0;
+}
