@@ -1,0 +1,78 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node* next;
+};
+struct node* head=NULL;
+
+void rotatepair()
+{
+    struct node*temp,*temp1,*temp2;
+    temp=head;
+    if(temp==NULL || temp->next==NULL)
+    {
+    }
+    else
+    {
+        temp1=temp->next;
+        head=temp1;
+        temp->next=temp1->next;
+        temp1->next=temp;
+        while(temp->next!=NULL && temp->next->next!=NULL)
+        {
+            temp2=temp;
+            temp1=temp->next;
+            temp=temp->next->next;
+            temp2->next=temp;
+            temp1->next=temp->next;
+            temp->next=temp1;
+            temp2=temp1;
+            temp1=temp;
+            temp=temp2;
+            
+        }
+    }
+}
+
+void display()
+{
+    struct node* temp;
+    temp=head;
+    while(temp!=NULL)
+    {
+        printf("%d ",temp->data);
+        temp=temp->next;
+    }
+    printf("\n");
+}
+void add()
+{
+     struct node* temp=(struct node*)malloc(sizeof(struct node));
+        scanf("%d",&temp->data);
+        temp->next=NULL;
+        if(head==NULL)
+        head=temp;
+        else
+        {
+            struct node* temp1;
+            temp1=head;
+            while(temp1->next!=NULL)
+            temp1=temp1->next;
+            temp1->next=temp;
+        }
+}
+int main()
+{
+    int n,i=0;
+    scanf("%d",&n);
+    while(i<n)
+    {
+       add();
+       i++;
+    }
+    rotatepair();
+    display();
+    return 0;
+}
